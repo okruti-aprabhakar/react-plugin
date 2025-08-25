@@ -5,7 +5,10 @@ import './App.css'
 import {Avatar, Image, Input, Layout, message, Select, Space, Spin, Table, Tag} from 'antd';
 
 function App() {
-    const props = window.MyReactProps || {};
+    // const props = window.MyReactProps || {};
+    const params = new URLSearchParams(window.location.search);
+    const apiUrl = params.get("apiUrl");
+    const message = params.get("message");
     const [count, setCount] = useState(0);
     const [products, setProducts] = useState([]);
 
@@ -80,7 +83,7 @@ function App() {
     }
 
     useEffect(()=>{
-        fetch(props.apiUrl).then((e) => {
+        fetch(apiUrl).then((e) => {
             return e.json();
 
         }).then(async (e)=>{
@@ -95,7 +98,7 @@ function App() {
 
     return (
         <>
-            <h1>{props.message}</h1>
+            <h1>{message}</h1>
             <button onClick={() => setCount((prev) => prev + 1)}>click</button>
             <Table columns={columns} dataSource={products}  pagination={{
                 pageSize: 5
